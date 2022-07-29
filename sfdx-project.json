@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "sfdx-source/core",
+      "default": true
+    }
+  ],
+  "name": "user-table-test",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "54.0"
+}
