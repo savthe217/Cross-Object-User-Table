@@ -1,0 +1,24 @@
+{
+    "root": true,
+    "extends": ["@salesforce/eslint-config-lwc/recommended", "prettier"],
+    "overrides": [
+        {
+            "files": ["**/*.test.js"],
+            "rules": {
+                "@lwc/lwc/no-unexpected-wire-adapter-usages": "off"
+            },
+            "env": {
+                "node": true
+            }
+        },
+        {
+            "files": ["**/*.js"],
+            "rules": {
+                "@lwc/lwc/no-api-reassignments": "off"
+            },
+            "env": {
+                "node": true
+            }
+        }
+    ]
+}
