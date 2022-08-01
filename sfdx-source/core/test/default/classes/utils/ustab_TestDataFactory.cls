@@ -63,7 +63,7 @@ public class ustab_TestDataFactory {
      * @param singleAmount single opportunity amount
      */
     public static void createOpportunities(Integer count, Decimal singleAmount) {
-        String uniqueness = Datetime.now() + ':' + Math.random();
+        String uniqueness = Datetime.now().second() + ':' + Math.random();
 
         List<Opportunity> opportunities = new List<Opportunity>();
 
