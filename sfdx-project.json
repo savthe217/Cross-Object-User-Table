@@ -2,7 +2,11 @@
   "packageDirectories": [
     {
       "path": "sfdx-source/core",
-      "default": true
+      "default": false
+    },
+    {
+        "path": "sfdx-source/unpackaged",
+        "default": true
     }
   ],
   "name": "user-table-test",

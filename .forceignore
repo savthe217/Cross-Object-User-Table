@@ -10,3 +10,17 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+Admin.profile
+
+sfdx-source/unpackaged/main/default/audience
+sfdx-source/unpackaged/main/default/navigationMenus
+sfdx-source/unpackaged/main/default/paymentGatewayProviders
+sfdx-source/unpackaged/main/default/roles
+sfdx-source/unpackaged/main/default/experiences
+sfdx-source/unpackaged/main/default/networks
+sfdx-source/unpackaged/main/default/settings
+sfdx-source/unpackaged/main/default/profiles
+sfdx-source/unpackaged/main/default/labels
+sfdx-source/unpackaged/main/default/fieldRestrictionRules
+sfdx-source/unpackaged/main/default/classes
