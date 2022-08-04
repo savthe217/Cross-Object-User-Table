@@ -1,0 +1,15 @@
+/*
+ * Styles for InputDateRange.
+ *
+ * Created by Yurii Heorhiiev on 04.08.2022.
+ * <savthe217@gmail.com>
+ */
+
+.date-range-input {
+    display: inline-block;
+    width: 150px;
+}
+
+.date-range-input + .date-range-input {
+    margin-left: var(--lwc-spacingSmall);
+}

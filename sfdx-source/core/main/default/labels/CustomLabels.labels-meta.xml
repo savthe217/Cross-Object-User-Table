@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>labelStartDate</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date input</shortDescription>
+        <value>Start Date</value>
+    </labels>
+    <labels>
+        <fullName>labelEndDate</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Date input</shortDescription>
+        <value>End Date</value>
+    </labels>
+</CustomLabels>

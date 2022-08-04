@@ -1,0 +1,32 @@
+<!--
+  ~ Template for InputDateRange.
+  ~
+  ~ Created by Yurii Heorhiiev on 04.08.2022.
+  ~ <savthe217@gmail.com>
+  -->
+
+<!-- Ustab Input Date Range -->
+<template>
+    <div class="slds-wrap">
+        <div class="date-range-input">
+            <lightning-input
+                    class="start-date"
+                    type="date"
+                    name="startDate"
+                    label={label.labelStartDate}
+                    value={startDate}
+                    onchange={onStartChange}>
+            </lightning-input>
+        </div>
+        <div class="date-range-input">
+            <lightning-input
+                    class="end-date"
+                    type="date"
+                    name="endDate"
+                    label={label.labelEndDate}
+                    value={endDate}
+                    onchange={onEndChange}>
+            </lightning-input>
+        </div>
+    </div>
+</template>
