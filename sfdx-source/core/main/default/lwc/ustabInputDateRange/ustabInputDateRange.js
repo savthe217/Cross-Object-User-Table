@@ -5,7 +5,7 @@
  * <savthe217@gmail.com>
  */
 
-import {api, LightningElement} from 'lwc';
+import {LightningElement, api} from 'lwc';
 import labelStartDate from '@salesforce/label/c.labelStartDate';
 import labelEndDate from '@salesforce/label/c.labelEndDate';
 
@@ -61,11 +61,15 @@ export default class UstabInputDateRange extends LightningElement {
     }
 
     onStartChange(event) {
+        event.stopPropagation();
+
         this.startDate = event.target.value;
         this.dispatchChange();
     }
 
     onEndChange(event) {
+        event.stopPropagation();
+
         this.endDate = event.target.value;
         this.dispatchChange();
     }
