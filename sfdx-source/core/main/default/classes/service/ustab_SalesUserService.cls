@@ -29,6 +29,7 @@ public with sharing class ustab_SalesUserService {
      *
      * @return statistics for sales users
      */
+    @AuraEnabled(Cacheable=true)
     public static List<ustab_SalesUser> getSalesUsers(Date startDate, Date endDate, String sortBy, String sortOrder) {
         Map<Id, ustab_SalesUser> salesUsersByUserId = new Map<Id, ustab_SalesUser>();
         List<Id> salesUserOrder = new List<Id>();
@@ -74,9 +75,13 @@ public with sharing class ustab_SalesUserService {
         ]);
 
         if (sortBy.equals(ORDER_USER_FULL_NAME) || sortBy.equals(ORDER_CONVERSION_RATE)) {
-            salesUsers = salesUsersByUserId.values();
-            for (ustab_SalesUser salesUser : salesUsers) {
+            for (ustab_SalesUser salesUser : salesUsersByUserId.values()) {
+                if (!isValidToShow(salesUser)) {
+                    continue;
+                }
+
                 fillGenericFields(salesUser, usersByIds.get(salesUser.ownerId));
+                salesUsers.add(salesUser);
             }
         } else {
             for (Id userId : salesUserOrder) {
@@ -85,12 +90,30 @@ public with sharing class ustab_SalesUserService {
                 }
 
                 ustab_SalesUser salesUser = salesUsersByUserId.get(userId);
+                if (!isValidToShow(salesUser)) {
+                    continue;
+                }
+
                 fillGenericFields(salesUser, usersByIds.get(userId));
                 salesUsers.add(salesUser);
             }
         }
 
         return salesUsers;
+    }
+
+    /**
+     * @param salesUser sales user stats
+     *
+     * @return true if sales user is valid to be displayed
+     */
+    private static Boolean isValidToShow(ustab_SalesUser salesUser) {
+        if (salesUser.totalLeads == null || salesUser.totalLeads < 1 ||
+            salesUser.totalOpportunities == null || salesUser.totalOpportunities < 1) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
