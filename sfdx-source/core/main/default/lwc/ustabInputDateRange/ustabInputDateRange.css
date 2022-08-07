@@ -8,6 +8,7 @@
 .date-range-input {
     display: inline-block;
     width: 150px;
+    vertical-align: top;
 }
 
 .date-range-input + .date-range-input {

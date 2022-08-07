@@ -63,14 +63,26 @@ export default class UstabInputDateRange extends LightningElement {
     onStartChange(event) {
         event.stopPropagation();
 
-        this.startDate = event.target.value;
+        const value = event.target.value;
+
+        if (value == null || value === '') {
+            return;
+        }
+
+        this.startDate = value;
         this.dispatchChange();
     }
 
     onEndChange(event) {
         event.stopPropagation();
 
-        this.endDate = event.target.value;
+        const value = event.target.value;
+
+        if (value == null || value === '') {
+            return;
+        }
+
+        this.endDate = value;
         this.dispatchChange();
     }
 
@@ -113,6 +125,7 @@ export default class UstabInputDateRange extends LightningElement {
 
                 if (endDateInput != null) {
                     endDateInput.value = this._endDate;
+                    endDateInput.reportValidity();
                 }
             } else {
                 isoEndDate.setDate(isoEndDate.getDate() - maxRange);
@@ -121,6 +134,7 @@ export default class UstabInputDateRange extends LightningElement {
 
                 if (startDateInput != null) {
                     startDateInput.value = this._startDate;
+                    startDateInput.reportValidity();
                 }
             }
         }
