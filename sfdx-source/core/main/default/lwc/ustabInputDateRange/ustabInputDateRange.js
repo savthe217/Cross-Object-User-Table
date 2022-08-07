@@ -43,7 +43,7 @@ export default class UstabInputDateRange extends LightningElement {
     @api
     set startDate(value) {
         this._startDate = value;
-        this.fitDateInRange();
+        this.fitDateInRange(true);
     }
 
     get startDate() {
@@ -53,7 +53,7 @@ export default class UstabInputDateRange extends LightningElement {
     @api
     set endDate(value) {
         this._endDate = value;
-        this.fitDateInRange();
+        this.fitDateInRange(false);
     }
 
     get endDate() {
@@ -91,8 +91,10 @@ export default class UstabInputDateRange extends LightningElement {
 
     /**
      * If date is out of max range this function will fix the end date to max available from the start date.
+     *
+     * @param isStartDateChange
      */
-    fitDateInRange() {
+    fitDateInRange(isStartDateChange) {
         const {startDate, endDate, maxRange} = this;
 
         if (startDate == null || endDate == null) {
@@ -104,12 +106,22 @@ export default class UstabInputDateRange extends LightningElement {
         const daysDifference = (isoEndDate - isoStartDate) / (1000 * 60 * 60 * 24);
 
         if (daysDifference < 0 || daysDifference > maxRange) {
-            isoStartDate.setDate(isoStartDate.getDate() + maxRange);
-            this._endDate = isoStartDate.toISOString().slice(0, 10);
-            const endDateInput = this.template.querySelector('.end-date');
+            if (isStartDateChange) {
+                isoStartDate.setDate(isoStartDate.getDate() + maxRange);
+                this._endDate = isoStartDate.toISOString().slice(0, 10);
+                const endDateInput = this.template.querySelector('.end-date');
 
-            if (endDateInput != null) {
-                endDateInput.value = this._endDate;
+                if (endDateInput != null) {
+                    endDateInput.value = this._endDate;
+                }
+            } else {
+                isoEndDate.setDate(isoEndDate.getDate() - maxRange);
+                this._startDate = isoEndDate.toISOString().slice(0, 10);
+                const startDateInput = this.template.querySelector('.start-date');
+
+                if (startDateInput != null) {
+                    startDateInput.value = this._startDate;
+                }
             }
         }
     }
