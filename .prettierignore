@@ -1,0 +1,17 @@
+# List files or directories below to ignore them when running prettier
+# More information: https://prettier.io/docs/en/ignore.html
+#
+
+**/staticresources/**
+**/*-meta.xml
+.localdevserver
+.sfdx
+.sf
+jsconfig.json
+coverage/
+sfdx-source/b2b-commerce-quickstart
+scripts/apex
+sfdx
+
+# Exclude project config (edited by CI workflow)
+sfdx-project.json
