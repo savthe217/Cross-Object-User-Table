@@ -45,17 +45,55 @@ public class ustab_TestDataFactory {
 
     /**
      * @param count number of leads
+     * @param ownerId leads owner
      */
-    public static void createLeads(Integer count) {
+    public static void createLeads(Integer count, Id ownerId) {
         String uniqueness = Datetime.now().second() + ':' + Math.random();
 
         List<Lead> leads = new List<Lead>();
 
         for (Integer i = 1; i <= count; i++) {
-            leads.add(new Lead(FirstName = 'Lead' + uniqueness + i, LastName = 'Test', Company = 'Self Commerce'));
+            Lead newLead = new Lead(FirstName = 'Lead' + uniqueness + i, LastName = 'Test', Company = 'Self Commerce');
+
+            if (ownerId != null) {
+                newLead.OwnerId = ownerId;
+            }
+
+            leads.add(newLead);
         }
 
         insert leads;
+    }
+
+    /**
+     * @param count number of leads
+     */
+    public static void createLeads(Integer count) {
+        createLeads(count, null);
+    }
+
+    /**
+     * @param count number of opportunities
+     * @param singleAmount single opportunity amount
+     * @param ownerId opportunities owner
+     */
+    public static void createOpportunities(Integer count, Decimal singleAmount, Id ownerId) {
+        String uniqueness = Datetime.now().second() + ':' + Math.random();
+
+        List<Opportunity> opportunities = new List<Opportunity>();
+
+        for (Integer i = 1; i <= count; i++) {
+            Opportunity newOpportunity = new Opportunity(Name = 'Opportunity' + uniqueness + i, StageName = 'Closed Won',
+                CloseDate = Date.today(), Amount = singleAmount);
+
+            if (ownerId != null) {
+                newOpportunity.OwnerId = ownerId;
+            }
+
+            opportunities.add(newOpportunity);
+        }
+
+        insert opportunities;
     }
 
     /**
@@ -63,15 +101,6 @@ public class ustab_TestDataFactory {
      * @param singleAmount single opportunity amount
      */
     public static void createOpportunities(Integer count, Decimal singleAmount) {
-        String uniqueness = Datetime.now().second() + ':' + Math.random();
-
-        List<Opportunity> opportunities = new List<Opportunity>();
-
-        for (Integer i = 1; i <= count; i++) {
-            opportunities.add(new Opportunity(Name = 'Opportunity' + uniqueness + i, StageName = 'Closed Won',
-                CloseDate = Date.today().addMonths(1), Amount = singleAmount));
-        }
-
-        insert opportunities;
+        createOpportunities(count, singleAmount, null);
     }
 }
