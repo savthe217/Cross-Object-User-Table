@@ -220,7 +220,7 @@ public with sharing class ustab_SalesUserService {
         String opportunitiesQuery =
             'SELECT OwnerId, COUNT(Id) totalOpportunities, SUM(Amount) totalAmount, MAX(CreatedDate) latestDate\n' +
                 'FROM Opportunity\n' +
-                'WHERE CloseDate >= :startDate AND CloseDate <= :endDate\n' +
+                'WHERE StageName = \'Closed Won\' AND CloseDate >= :startDate AND CloseDate <= :endDate\n' +
                 'WITH SECURITY_ENFORCED\n' +
                 'GROUP BY OwnerId\n' +
                 'ORDER BY ';
