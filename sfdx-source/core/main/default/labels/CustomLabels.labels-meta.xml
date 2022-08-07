@@ -16,4 +16,60 @@
         <shortDescription>Date input</shortDescription>
         <value>End Date</value>
     </labels>
+    <labels>
+        <fullName>labelOwner</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Owner</shortDescription>
+        <value>Owner</value>
+    </labels>
+    <labels>
+        <fullName>labelTotalLeads</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>total leads</shortDescription>
+        <value>Total Leads</value>
+    </labels>
+    <labels>
+        <fullName>labelTotalOpportunities</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>total opportunities</shortDescription>
+        <value>Total Opps</value>
+    </labels>
+    <labels>
+        <fullName>labelConversionRate</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>conversion rate</shortDescription>
+        <value>Conversion Rate</value>
+    </labels>
+    <labels>
+        <fullName>labelLatestOpportunityDate</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>latest opportunity created date</shortDescription>
+        <value>Max Created Date (Opp)</value>
+    </labels>
+    <labels>
+        <fullName>labelTotalOpportunitiesValue</fullName>
+        <categories>labels</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>total opportunities value</shortDescription>
+        <value>Total Val (Opp)</value>
+    </labels>
+    <labels>
+        <fullName>labelLoading</fullName>
+        <categories>label</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading</shortDescription>
+        <value>Loading</value>
+    </labels>
 </CustomLabels>
