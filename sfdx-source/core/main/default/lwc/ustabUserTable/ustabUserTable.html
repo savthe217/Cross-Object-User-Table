@@ -1,0 +1,37 @@
+<!--
+  ~ Template for UserTable.
+  ~
+  ~ Created by Yurii Heorhiiev on 02.08.2022.
+  ~ <savthe217@gmail.com>
+  -->
+
+<!-- Ustab User Table -->
+<template>
+    <lightning-card>
+        <div class="slds-p-horizontal_small">
+            <div class="slds-m-bottom_small">
+                <c-ustab-input-date-range
+                        max-range={maxDateRange}
+                        start-date={startDate}
+                        end-date={endDate}
+                        onchange={onDateRangeChange}>
+                </c-ustab-input-date-range>
+            </div>
+            <div class="users-table">
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text={labels.labelLoading}></lightning-spinner>
+                </template>
+                <c-ustab-sales-datatable
+                        column-widths-mode="auto"
+                        data={items}
+                        columns={columns}
+                        key-field="ownerId"
+                        sorted-direction={sortDirection}
+                        sorted-by={sortBy}
+                        onsort={onColumnSort}
+                        hide-checkbox-column>
+                </c-ustab-sales-datatable>
+            </div>
+        </div>
+    </lightning-card>
+</template>

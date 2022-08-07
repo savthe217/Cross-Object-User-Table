@@ -1,0 +1,11 @@
+/*
+ * Styles for UserTable.
+ *
+ * Created by Yurii Heorhiiev on 07.08.2022.
+ * <savthe217@gmail.com>
+ */
+
+.users-table {
+    position: relative;
+    max-width: 1180px;
+}

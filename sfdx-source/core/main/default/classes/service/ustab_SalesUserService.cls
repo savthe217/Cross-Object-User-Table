@@ -8,9 +8,9 @@
 public with sharing class ustab_SalesUserService {
     public static final String ORDER_TOTAL_AMOUNT = 'totalAmount';
     public static final String ORDER_TOTAL_OPPORTUNITIES = 'totalOpportunities';
-    public static final String ORDER_LATEST_OPPORTUNITY = 'latestOpportunity';
+    public static final String ORDER_LATEST_OPPORTUNITY = 'lastOpportunityDate';
     public static final String ORDER_TOTAL_LEADS = 'totalLeads';
-    public static final String ORDER_USER_FULL_NAME = 'name';
+    public static final String ORDER_USER_FULL_NAME = 'ownerName';
     public static final String ORDER_CONVERSION_RATE = 'conversionRate';
     private static final List<String> opportunitiesOrderTypes = new List<String>{
         ORDER_TOTAL_AMOUNT, ORDER_LATEST_OPPORTUNITY, ORDER_TOTAL_OPPORTUNITIES
@@ -25,7 +25,7 @@ public with sharing class ustab_SalesUserService {
      * @param startDate date range start
      * @param endDate date range end
      * @param sortBy sort column
-     * @param sortOrder sort order (ASC DESC)
+     * @param sortOrder sort order (asc desc)
      *
      * @return statistics for sales users
      */
@@ -68,7 +68,7 @@ public with sharing class ustab_SalesUserService {
         }
 
         Map<Id, User> usersByIds = new Map<Id, User>([
-            SELECT Id, FirstName, LastName
+            SELECT Id, FirstName, LastName, SmallPhotoUrl
             FROM User
             WHERE Id IN :userIds
             WITH SECURITY_ENFORCED
@@ -131,10 +131,11 @@ public with sharing class ustab_SalesUserService {
             }
 
             salesUser.ownerName += user.LastName;
+            salesUser.smallPhotoUrl = user.SmallPhotoUrl;
         }
 
         if (salesUser.totalLeads > 0) {
-            salesUser.conversionRate = 100 * salesUser.totalOpportunities / salesUser.totalLeads;
+            salesUser.conversionRate = (Double) salesUser.totalOpportunities / salesUser.totalLeads;
         }
     }
 
@@ -210,11 +211,12 @@ public with sharing class ustab_SalesUserService {
      * @param startDate date range start
      * @param endDate date range end
      * @param sortBy sort column
-     * @param sortOrder sort order (ASC DESC)
+     * @param sortOrder sort order (asc desc)
      *
      * @return query results for opportunities grouped by owner
      */
-    private static List<AggregateResult> queryOpportunitiesByOwner(Date startDate, Date endDate, String sortBy, String sortOrder) {
+    private static List<AggregateResult> queryOpportunitiesByOwner(Date startDate, Date endDate, String sortBy,
+        String sortOrder) {
         String opportunitiesQuery =
             'SELECT OwnerId, COUNT(Id) totalOpportunities, SUM(Amount) totalAmount, MAX(CreatedDate) latestDate\n' +
                 'FROM Opportunity\n' +
@@ -231,7 +233,7 @@ public with sharing class ustab_SalesUserService {
             opportunitiesQuery += 'SUM(Amount)';
         }
 
-        opportunitiesQuery += ' ' + sortOrder;
+        opportunitiesQuery += ' ' + sortOrder.toUpperCase();
         opportunitiesQuery += '\nLIMIT 20';
 
         return Database.query(opportunitiesQuery);
@@ -241,18 +243,19 @@ public with sharing class ustab_SalesUserService {
      * @param startDate date range start
      * @param endDate date range end
      * @param sortBy sort column
-     * @param sortOrder sort order (ASC DESC)
+     * @param sortOrder sort order (asc desc)
      *
      * @return query results for leads grouped by owner
      */
-    private static List<AggregateResult> queryLeadsByOwner(Date startDate, Date endDate, String sortBy, String sortOrder) {
+    private static List<AggregateResult> queryLeadsByOwner(Date startDate, Date endDate, String sortBy,
+        String sortOrder) {
         String leadsQuery =
             'SELECT OwnerId, COUNT(Id) totalLeads\n' +
                 'FROM Lead\n' +
                 'WHERE CreatedDate >= :startDate AND CreatedDate <= :endDate\n' +
                 'WITH SECURITY_ENFORCED\n' +
                 'GROUP BY OwnerId\n' +
-                'ORDER BY COUNT(Id) ' + sortOrder + '\n' +
+                'ORDER BY COUNT(Id) ' + sortOrder.toUpperCase() + '\n' +
                 'LIMIT 20';
 
         return Database.query(leadsQuery);
