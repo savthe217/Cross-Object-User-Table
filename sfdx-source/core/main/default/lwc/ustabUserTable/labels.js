@@ -14,6 +14,11 @@ import labelTotalOpportunitiesValue from '@salesforce/label/c.labelTotalOpportun
 import labelLoading from '@salesforce/label/c.labelLoading';
 
 export default {
-    labelOwner, labelTotalLeads, labelTotalOpportunities, labelConversionRate, labelLatestOpportunityDate,
-    labelTotalOpportunitiesValue, labelLoading
-}
+    labelOwner,
+    labelTotalLeads,
+    labelTotalOpportunities,
+    labelConversionRate,
+    labelLatestOpportunityDate,
+    labelTotalOpportunitiesValue,
+    labelLoading
+};
