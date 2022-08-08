@@ -13,11 +13,11 @@ public with sharing class ustab_SalesUserService {
     public static final String ORDER_USER_FULL_NAME = 'ownerName';
     public static final String ORDER_CONVERSION_RATE = 'conversionRate';
     private static final List<String> opportunitiesOrderTypes = new List<String>{
-        ORDER_TOTAL_AMOUNT, ORDER_LATEST_OPPORTUNITY, ORDER_TOTAL_OPPORTUNITIES
+        ORDER_TOTAL_AMOUNT,
+        ORDER_LATEST_OPPORTUNITY,
+        ORDER_TOTAL_OPPORTUNITIES
     };
-    private static final List<String> leadsOrderTypes = new List<String>{
-        ORDER_TOTAL_LEADS
-    };
+    private static final List<String> leadsOrderTypes = new List<String>{ ORDER_TOTAL_LEADS };
 
     /**
      * Retrieves statistics for sales users by a given date range.
@@ -58,8 +58,11 @@ public with sharing class ustab_SalesUserService {
      *
      * @return list of SalesUser with complete fields
      */
-    private static List<ustab_SalesUser> constructSalesUserList(String sortBy, List<Id> salesUserOrder,
-        Map<Id, ustab_SalesUser> salesUsersByUserId) {
+    private static List<ustab_SalesUser> constructSalesUserList(
+        String sortBy,
+        List<Id> salesUserOrder,
+        Map<Id, ustab_SalesUser> salesUsersByUserId
+    ) {
         List<ustab_SalesUser> salesUsers = new List<ustab_SalesUser>();
         Set<Id> userIds = salesUsersByUserId.keySet();
 
@@ -67,12 +70,9 @@ public with sharing class ustab_SalesUserService {
             return salesUsers;
         }
 
-        Map<Id, User> usersByIds = new Map<Id, User>([
-            SELECT Id, FirstName, LastName, SmallPhotoUrl
-            FROM User
-            WHERE Id IN :userIds
-            WITH SECURITY_ENFORCED
-        ]);
+        Map<Id, User> usersByIds = new Map<Id, User>(
+            [SELECT Id, FirstName, LastName, SmallPhotoUrl FROM User WHERE Id IN :userIds WITH SECURITY_ENFORCED]
+        );
 
         if (sortBy.equals(ORDER_USER_FULL_NAME) || sortBy.equals(ORDER_CONVERSION_RATE)) {
             for (ustab_SalesUser salesUser : salesUsersByUserId.values()) {
@@ -108,8 +108,12 @@ public with sharing class ustab_SalesUserService {
      * @return true if sales user is valid to be displayed
      */
     private static Boolean isValidToShow(ustab_SalesUser salesUser) {
-        if (salesUser.totalLeads == null || salesUser.totalLeads < 1 ||
-            salesUser.totalOpportunities == null || salesUser.totalOpportunities < 1) {
+        if (
+            salesUser.totalLeads == null ||
+            salesUser.totalLeads < 1 ||
+            salesUser.totalOpportunities == null ||
+            salesUser.totalOpportunities < 1
+        ) {
             return false;
         }
 
@@ -147,8 +151,12 @@ public with sharing class ustab_SalesUserService {
      * @param salesUserOrder ordered list of user ids
      * @param salesUsersByUserId map of SalesUser by user Id
      */
-    private static void processOpportunitiesAggregateResults(List<AggregateResult> results, String sortBy,
-        List<Id> salesUserOrder, Map<Id, ustab_SalesUser> salesUsersByUserId) {
+    private static void processOpportunitiesAggregateResults(
+        List<AggregateResult> results,
+        String sortBy,
+        List<Id> salesUserOrder,
+        Map<Id, ustab_SalesUser> salesUsersByUserId
+    ) {
         Boolean isOpportunitiesSort = opportunitiesOrderTypes.contains(sortBy);
 
         for (AggregateResult result : results) {
@@ -182,8 +190,12 @@ public with sharing class ustab_SalesUserService {
      * @param salesUserOrder ordered list of user ids
      * @param salesUsersByUserId map of SalesUser  by user Id
      */
-    private static void processLeadsAggregateResults(List<AggregateResult> results, String sortBy,
-        List<Id> salesUserOrder, Map<Id, ustab_SalesUser> salesUsersByUserId) {
+    private static void processLeadsAggregateResults(
+        List<AggregateResult> results,
+        String sortBy,
+        List<Id> salesUserOrder,
+        Map<Id, ustab_SalesUser> salesUsersByUserId
+    ) {
         Boolean isLeadsSort = leadsOrderTypes.contains(sortBy);
 
         for (AggregateResult result : results) {
@@ -215,15 +227,19 @@ public with sharing class ustab_SalesUserService {
      *
      * @return query results for opportunities grouped by owner
      */
-    private static List<AggregateResult> queryOpportunitiesByOwner(Date startDate, Date endDate, String sortBy,
-        String sortOrder) {
+    private static List<AggregateResult> queryOpportunitiesByOwner(
+        Date startDate,
+        Date endDate,
+        String sortBy,
+        String sortOrder
+    ) {
         String opportunitiesQuery =
             'SELECT OwnerId, COUNT(Id) totalOpportunities, SUM(Amount) totalAmount, MAX(CreatedDate) latestDate\n' +
-                'FROM Opportunity\n' +
-                'WHERE StageName = \'Closed Won\' AND CloseDate >= :startDate AND CloseDate <= :endDate\n' +
-                'WITH SECURITY_ENFORCED\n' +
-                'GROUP BY OwnerId\n' +
-                'ORDER BY ';
+            'FROM Opportunity\n' +
+            'WHERE StageName = \'Closed Won\' AND CloseDate >= :startDate AND CloseDate <= :endDate\n' +
+            'WITH SECURITY_ENFORCED\n' +
+            'GROUP BY OwnerId\n' +
+            'ORDER BY ';
 
         if (sortBy.equals(ORDER_TOTAL_OPPORTUNITIES)) {
             opportunitiesQuery += 'COUNT(Id)';
@@ -247,16 +263,22 @@ public with sharing class ustab_SalesUserService {
      *
      * @return query results for leads grouped by owner
      */
-    private static List<AggregateResult> queryLeadsByOwner(Date startDate, Date endDate, String sortBy,
-        String sortOrder) {
+    private static List<AggregateResult> queryLeadsByOwner(
+        Date startDate,
+        Date endDate,
+        String sortBy,
+        String sortOrder
+    ) {
         String leadsQuery =
             'SELECT OwnerId, COUNT(Id) totalLeads\n' +
-                'FROM Lead\n' +
-                'WHERE CreatedDate >= :startDate AND CreatedDate <= :endDate\n' +
-                'WITH SECURITY_ENFORCED\n' +
-                'GROUP BY OwnerId\n' +
-                'ORDER BY COUNT(Id) ' + sortOrder.toUpperCase() + '\n' +
-                'LIMIT 20';
+            'FROM Lead\n' +
+            'WHERE CreatedDate >= :startDate AND CreatedDate <= :endDate\n' +
+            'WITH SECURITY_ENFORCED\n' +
+            'GROUP BY OwnerId\n' +
+            'ORDER BY COUNT(Id) ' +
+            sortOrder.toUpperCase() +
+            '\n' +
+            'LIMIT 20';
 
         return Database.query(leadsQuery);
     }

@@ -5,13 +5,14 @@
  * <savthe217@gmail.com>
  */
 
-import {LightningElement, api} from 'lwc';
+import { LightningElement, api } from 'lwc';
 import labelStartDate from '@salesforce/label/c.labelStartDate';
 import labelEndDate from '@salesforce/label/c.labelEndDate';
 
 export default class UstabInputDateRange extends LightningElement {
     label = {
-        labelStartDate, labelEndDate
+        labelStartDate,
+        labelEndDate
     };
 
     _maxRange = 31;
@@ -90,12 +91,13 @@ export default class UstabInputDateRange extends LightningElement {
      * Throws 'change' event to parent components.
      */
     dispatchChange() {
-        const {startDate, endDate} = this;
+        const { startDate, endDate } = this;
 
         this.dispatchEvent(
             new CustomEvent('change', {
                 detail: {
-                    startDate, endDate
+                    startDate,
+                    endDate
                 }
             })
         );
@@ -107,7 +109,7 @@ export default class UstabInputDateRange extends LightningElement {
      * @param isStartDateChange
      */
     fitDateInRange(isStartDateChange) {
-        const {startDate, endDate, maxRange} = this;
+        const { startDate, endDate, maxRange } = this;
 
         if (startDate == null || endDate == null) {
             return;

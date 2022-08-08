@@ -5,9 +5,9 @@
  * <savthe217@gmail.com>
  */
 
-import {LightningElement, track, wire} from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import getSalesUsers from '@salesforce/apex/ustab_SalesUserService.getSalesUsers';
-import {UtilsMixin} from 'c/ustabUtils';
+import { UtilsMixin } from 'c/ustabUtils';
 import columns from './columns';
 import labelsImport from './labels';
 
@@ -45,7 +45,7 @@ export default class UstabUserTable extends UtilsMixin(LightningElement) {
         sortOrder: '$sortDirection'
     })
     getItems(payload) {
-        const {error, data} = payload;
+        const { error, data } = payload;
 
         if (error) {
             this[UtilsMixin.HandleErrors](error);
@@ -57,8 +57,7 @@ export default class UstabUserTable extends UtilsMixin(LightningElement) {
     }
 
     onDateRangeChange(event) {
-        const {startDate, endDate} = event.detail;
-
+        const { startDate, endDate } = event.detail;
 
         if (this.startDate === startDate && this.endDate === endDate) {
             return;

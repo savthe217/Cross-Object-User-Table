@@ -5,7 +5,7 @@
  * <savthe217@gmail.com>
  */
 
-import labels from "./labels";
+import labels from './labels';
 
 export default [
     {
@@ -13,7 +13,7 @@ export default [
         fieldName: 'ownerName',
         type: 'ownerName',
         typeAttributes: {
-            smallPhotoUrl: {fieldName: 'smallPhotoUrl'}
+            smallPhotoUrl: { fieldName: 'smallPhotoUrl' }
         },
         sortable: true,
         fixedWidth: 300
@@ -48,7 +48,7 @@ export default [
         label: labels.labelLatestOpportunityDate,
         fieldName: 'lastOpportunityDate',
         type: 'date',
-        cellAttributes: {alignment: 'right'},
+        cellAttributes: { alignment: 'right' },
         sortable: true,
         fixedWidth: 240
     },
@@ -58,5 +58,5 @@ export default [
         type: 'currency',
         sortable: true,
         fixedWidth: 180
-    },
+    }
 ];

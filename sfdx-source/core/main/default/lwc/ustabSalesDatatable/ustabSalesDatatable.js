@@ -13,7 +13,7 @@ export default class UstabSalesDatatable extends LightningDatatable {
         ownerName: {
             template: ownerNameTemplate,
             standardCellLayout: true,
-            typeAttributes: ['smallPhotoUrl'],
+            typeAttributes: ['smallPhotoUrl']
         }
-    }
+    };
 }

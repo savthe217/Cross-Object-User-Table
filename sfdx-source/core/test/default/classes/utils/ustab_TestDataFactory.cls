@@ -83,8 +83,12 @@ public class ustab_TestDataFactory {
         List<Opportunity> opportunities = new List<Opportunity>();
 
         for (Integer i = 1; i <= count; i++) {
-            Opportunity newOpportunity = new Opportunity(Name = 'Opportunity' + uniqueness + i, StageName = 'Closed Won',
-                CloseDate = Date.today(), Amount = singleAmount);
+            Opportunity newOpportunity = new Opportunity(
+                Name = 'Opportunity' + uniqueness + i,
+                StageName = 'Closed Won',
+                CloseDate = Date.today(),
+                Amount = singleAmount
+            );
 
             if (ownerId != null) {
                 newOpportunity.OwnerId = ownerId;
