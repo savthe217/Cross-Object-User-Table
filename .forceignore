@@ -13,6 +13,7 @@ package.xml
 
 Admin.profile
 AppSwitcher.appMenu
+**/settings/*
 
 sfdx-source/unpackaged/main/default/audience
 sfdx-source/unpackaged/main/default/navigationMenus
